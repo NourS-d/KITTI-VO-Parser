@@ -1,8 +1,8 @@
 import numpy as np
 import yaml
 
-sequence = "00"
-directory = "/home/user/Data/data_odometry_gray/dataset/"
+sequence = "00" # Sequence Number
+directory = "/home/user/Data/data_odometry_gray/dataset/" # Change to your directory
 
 
 
