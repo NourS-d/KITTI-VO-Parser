@@ -3,8 +3,7 @@ import yaml
 import cv2
 
 sequence = "00" # Sequence Number
-directory = "/home/user/Data/data_odometry_gray/dataset/" # Change to your directory
-
+folder = "/home/user/data_odometry_gray/dataset/" # Change to your directory
 
 
 def readImage(idx):
@@ -29,9 +28,9 @@ def readImage_Stereo(idx):
 
 def getCalibrationMatrix(num=0):
     """ 
-    Parses the Calibration Matrix from the provided dataset file
-    Change 'num' to select projection matrix. Be careful to remove the [:3,:3]
-    in the return if you want to use it
+    Parses the Calibration Matrix and other data from the provided dataset file.
+    The order of data is as follows:
+    ----->K, R, t, rotX, rotY, rotZ, eular 
     """
     
     calib = folder + "sequences/"+sequence+"/calib.txt"
@@ -44,7 +43,9 @@ def getCalibrationMatrix(num=0):
     
     if key in Ks:
         txt = Ks[key]
-        return np.fromstring(txt, dtype=float, sep=" ").reshape((3,4))[:3,:3]
+        P= np.fromstring(txt, dtype=float, sep=" ").reshape((3,4))
+        return cv2.decomposeProjectionMatrix(P)
+        
     else:
         print("\n*** Error reading calibration matrix ***")
 
