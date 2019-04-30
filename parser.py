@@ -1,5 +1,6 @@
 import numpy as np
 import yaml
+import cv2
 
 sequence = "00" # Sequence Number
 directory = "/home/user/Data/data_odometry_gray/dataset/" # Change to your directory
