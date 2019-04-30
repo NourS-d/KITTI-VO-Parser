@@ -45,4 +45,11 @@ def getCalibrationMatrix(num=0):
     else:
         print("\n*** Error reading calibration matrix ***")
 
+def getRealPoses():
+    """
+    Returns the ground truth transformation matrices.
+    """
+    pose = folder + "poses/" + sequence + ".txt"
+    poses = np.genfromtxt(pose, delimiter=' ',dtype=None)
+    return poses.reshape((len(poses),3,4))
 
