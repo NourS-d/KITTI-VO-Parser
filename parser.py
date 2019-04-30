@@ -55,3 +55,18 @@ def getRealPoses():
     poses = np.genfromtxt(pose, delimiter=' ',dtype=None)
     return poses.reshape((len(poses),3,4))
 
+
+def getScale(pose, idx):
+    """
+    When estimating the rotation and translation from the essential matrix, the 
+    translation is up to a scale.
+    This function returns the true scale while moving from (idx-1) to (idx).
+    Poses are supplied from the getRealPoses function.
+    Useful in just testing the algorithm.
+    """
+    x0, y0, z0 = pose[idx-1,0,-1],pose[idx-1,1,-1],pose[idx-1,2,-1]
+    x1, y1, z1 = pose[idx,0,-1],pose[idx,1,-1],pose[idx,2,-1]
+    scale = np.sqrt( (x0-x1)**2 + (y0-y1)**2 + (z0-z1)**2 )
+    line = [x0,y0,z0,x1,y1,z1]
+    return(scale,line)
+
