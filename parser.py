@@ -26,7 +26,9 @@ def readImage_Stereo(idx):
 
 def getCalibrationMatrix(num=0):
     """ 
-    Parses the Calibration Matrix from the provided dataset file 
+    Parses the Calibration Matrix from the provided dataset file
+    Change 'num' to select projection matrix. Be careful to remove the [:3,:3]
+    in the return if you want to use it
     """
     
     calib = folder + "sequences/"+sequence+"/calib.txt"
