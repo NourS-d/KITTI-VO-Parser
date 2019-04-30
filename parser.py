@@ -12,6 +12,8 @@ def readImage(idx):
     Suitable for monocular visual odometry.
     """
     img =  cv2.imread(folder + 'sequences/'+ sequence +'/image_0/{0:06d}.png'.format(idx))
+    return img, cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
 
 def readImage_Stereo(idx):
     """
