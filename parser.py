@@ -22,6 +22,25 @@ def readImage_Stereo(idx):
     imgR  =  cv2.imread(folder + 'sequences/'+ sequence +'/image_1/{0:06d}.png'.format(idx))
     grayL =  cv2.cvtColor(imgL, cv2.COLOR_BGR2GRAY)
     grayR =  cv2.cvtColor(imgR, cv2.COLOR_BGR2GRAY)
-
     return imgL, grayL, imgR, grayR
+
+def getCalibrationMatrix(num=0):
+    """ 
+    Parses the Calibration Matrix from the provided dataset file 
+    """
+    
+    calib = folder + "sequences/"+sequence+"/calib.txt"
+
+    f= open(calib)
+    Ks = yaml.safe_load(f)
+    f.close()
+
+    key = "P"+str(num)
+    
+    if key in Ks:
+        txt = Ks[key]
+        return np.fromstring(txt, dtype=float, sep=" ").reshape((3,4))[:3,:3]
+    else:
+        print("\n*** Error reading calibration matrix ***")
+
 
